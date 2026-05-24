@@ -75,5 +75,5 @@ public class ResourceServerConfig {
 		return source;
 	}
 
-	
+
 }
