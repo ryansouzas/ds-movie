@@ -41,7 +41,7 @@ public class MovieDTO {
 	}
 
     public MovieDTO(){
-        
+
     }
 
 	public MovieDTO(MovieEntity movie) {
