@@ -21,6 +21,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.Collections;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
+
 @ExtendWith(SpringExtension.class)
 public class MovieServiceTests {
 	
@@ -34,6 +36,7 @@ public class MovieServiceTests {
     private PageImpl<MovieEntity> page;
     private Pageable pageable;
     private MovieEntity movie;
+    private MovieDTO movieDTO;
     private String existingTitle;
     private Long existingId, nonExistingId;
 
@@ -43,12 +46,14 @@ public class MovieServiceTests {
         existingId = 1L;
         nonExistingId = 2L;
         movie = MovieFactory.createMovieEntity();
+        movieDTO = MovieFactory.createMovieDTO();
         pageable = PageRequest.of(0,10);
         page = new PageImpl<>(Collections.singletonList(movie));
 
         Mockito.when(repository.searchByTitle(existingTitle, pageable)).thenReturn(page);
         Mockito.when(repository.findById(existingId)).thenReturn(Optional.of(movie));
         Mockito.when(repository.findById(nonExistingId)).thenReturn(Optional.empty());
+        Mockito.when(repository.save(any())).thenReturn(movie);
     }
 	
 	@Test
@@ -76,6 +81,10 @@ public class MovieServiceTests {
 	
 	@Test
 	public void insertShouldReturnMovieDTO() {
+        MovieDTO result = service.insert(movieDTO);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(result.getId(), movie.getId());
 	}
 	
 	@Test
