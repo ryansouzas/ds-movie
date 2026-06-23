@@ -43,13 +43,12 @@ public class ScoreServiceTests {
     private MovieEntity movie;
     private ScoreEntity score;
     private ScoreDTO scoreDTO;
-    private Long existingId, nonExistingId;
+    private Long  nonExistingId;
     private Double value;
 
     @BeforeEach
     void setUp() throws Exception{
 
-        existingId = 1L;
         nonExistingId = 2L;
         value = 4.0;
 
